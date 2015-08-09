@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Ribbit</string>
+
+    <string name="title_section1">Inbox</string>
+    <string name="title_section2">Friends</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="sign_up_text">Sign Up!</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="email_hint">Email</string>
+    <string name="sign_up_button_label">Sign Up</string>
+    <string name="signup_error_message">Please make sure you enter all fields</string>
+    <string name="signup_error_title">Oops!</string>
+    <string name="login_error_message">Please make sure you enter all fields</string>
+    <string name="login_error_title">Oops!</string>
+    <string name="menu_logout_label">Logout</string>
+    <string name="empty_inbox_label">No new messages</string>
+    <string name="empty_friends_label">No friends to show</string>
+    <string name="title_activity_edit_friends">Edit Friends</string>
+    <string name="error_title">We\'re Sorry</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="firstNamePlaceholder">First Name: </string>
+    <string name="lastNamePlaceholder">Last Name: </string>
+    <string name="cityPlaceholder">City: </string>
+    <string name="menu_edit_friends_label">Edit Friends</string>
+    <string name="menu_camera_label">Camera</string>
+    <string-array name="camera_choices">
+        <item>Take Picture</item>
+        <item>Take Video</item>
+        <item>Choose Picture</item>
+        <item>Choose Video</item>
+    </string-array>
+    <string name="title_activity_recipients">Choose Recipients</string>
+    <string name="title_activity_text">TextActivity</string>
+    <string name="text_message_field_hint">Enter Your Text Message</string>
+    <string name="send_button_text">Send</string>
+</resources>
