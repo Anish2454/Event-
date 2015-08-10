@@ -292,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_text:
                 Intent textIntent = new Intent(this, TextActivity.class);
                 startActivity(textIntent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

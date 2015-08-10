@@ -16,6 +16,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,11 +45,15 @@ public class InboxFragment extends ListFragment {
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
                     mMessages = list;
-
-                    MessageAdapter adapter = new MessageAdapter(
-                            getListView().getContext(),
-                            mMessages);
-                    setListAdapter(adapter);
+                    if(getListView().getAdapter() == null) {
+                        MessageAdapter adapter = new MessageAdapter(
+                                getListView().getContext(),
+                                mMessages);
+                        setListAdapter(adapter);
+                    }
+                    else{
+                        ((MessageAdapter)getListView().getAdapter()).refill(mMessages);
+                    }
                 }
             }
         });
@@ -80,6 +85,24 @@ public class InboxFragment extends ListFragment {
             Intent intent = new Intent(getActivity(), ViewTextActivity.class);
             intent.putExtra("message", message.get(ParseConstants.KEY_MESSAGE).toString());
             startActivity(intent);
+        }
+
+        //Delete Message
+        List<String> ids = message.getList(ParseConstants.KEY_RECIPENT_IDS);
+
+        if(ids.size() == 1){
+            //last recipient
+            message.deleteInBackground();
+        }
+        else{
+            //remove recipient ID only not entire message
+            ids.remove(ParseUser.getCurrentUser().getObjectId());
+
+            ArrayList<String> idsToRemove = new ArrayList<>();
+            idsToRemove.add(ParseUser.getCurrentUser().getObjectId());
+
+            message.removeAll(ParseConstants.KEY_RECIPENT_IDS, idsToRemove);
+            message.saveInBackground();
         }
     }
 }
