@@ -69,6 +69,17 @@ public class InboxFragment extends ListFragment {
                 intent.setData(fileUri);
                 startActivity(intent);
             }
+            else{
+                //Show Video
+                Intent intent = new Intent(Intent.ACTION_VIEW, fileUri);
+                intent.setDataAndType(fileUri, "video/*");
+                startActivity(intent);
+            }
+        }
+        else{
+            Intent intent = new Intent(getActivity(), ViewTextActivity.class);
+            intent.putExtra("message", message.get(ParseConstants.KEY_MESSAGE).toString());
+            startActivity(intent);
         }
     }
 }
