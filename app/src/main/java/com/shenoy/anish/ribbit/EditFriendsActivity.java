@@ -110,6 +110,7 @@ public class EditFriendsActivity extends ListActivity {
                 }
             }
         });
+
     }
 
     private void addFriendCheckmarks() {

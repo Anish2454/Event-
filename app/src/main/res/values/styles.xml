@@ -1,16 +1,43 @@
 <resources>
 
-    <style name="ButtonAppTheme" parent="android:Widget.Holo.Light.Button">
-        <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
     </style>
 
-    <style name="AppTheme" parent="@style/_AppTheme"/>
+    <style name="AuthBackground">
+        <item name="android:background">@drawable/background_fill</item>
+    </style>
 
-    <!--   <style name="_AppTheme" parent="android:Theme.Holo.Light"> -->
-    <style name="_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AuthBackgroundImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:background">@mipmap/background</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:scaleType">fitStart</item>
+        <item name="android:contentDescription">@string/content_description</item>
+    </style>
 
-        <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
+    <style name="AuthTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">60dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
 
+    <style name="AuthSubTitle" parent="AuthTitle">
+        <item name="android:layout_below">@+id/title</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_alignParentTop">false</item>
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
 </resources>

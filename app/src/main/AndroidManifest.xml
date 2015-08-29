@@ -81,6 +81,7 @@
             android:name=".ViewTextActivity"
             android:label="@string/title_activity_view_text" >
         </activity>
+
     </application>
 
 </manifest>

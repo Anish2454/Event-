@@ -43,4 +43,8 @@
     <string name="title_activity_view_image">Ribbit</string>
     <string name="title_activity_view_text">ViewTextActivity</string>
     <string name="content_description">Ribbit Background</string>
+
+    <string name="hello">Hello World!</string>
+    <string name="title">Hello Notification!</string>
+    <string name="notification_posted">Notification posted</string>
 </resources>

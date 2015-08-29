@@ -26,7 +26,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar(); actionBar.hide();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         actionBar.hide();
 
         mSignUpTextView = (TextView) findViewById(R.id.signUpText);
