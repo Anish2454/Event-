@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ba1253e-8631-4690-b8a5-02a83f0322ad" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\Parse_1_9_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\appcompat_v7_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\bolts_android_1_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\commons_io_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\picasso_2_5_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\support_annotations_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\libraries\support_v4_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\.idea\runConfigurations.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\ANISH\Documents\GitHub\Eventé\app\app.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Eventé.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Eventé.iws" />
@@ -1755,6 +1741,13 @@
       <option name="number" value="Default" />
       <updated>1442286800704</updated>
     </task>
+    <task id="LOCAL-00001" summary="App Rename">
+      <created>1442286998159</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1442286998159</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1791,6 +1784,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="App Rename" />
+    <option name="LAST_COMMIT_MESSAGE" value="App Rename" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
