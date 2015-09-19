@@ -54,7 +54,7 @@ public class EditFriendsActivity extends ListActivity {
                     String[] usernames = new String[mUsers.size()];
                     int i = 0;
                     for (ParseUser user : mUsers) {
-                        usernames[i] = user.getUsername();
+                        usernames[i] = user.get(ParseConstants.KEY_FIRST_NAME).toString();
                         i++;
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(

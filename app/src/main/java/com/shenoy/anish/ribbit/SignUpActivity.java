@@ -35,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.emailField);
         mFirstName = (EditText) findViewById(R.id.firstNameField);
         mLastName = (EditText) findViewById(R.id.lastNameField);
-        mCity = (EditText) findViewById(R.id.cityField);
         mSignUpButton = (Button) findViewById(R.id.signupButton);
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,14 +44,12 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = mEmail.getText().toString();
                 String firstName = mFirstName.getText().toString();
                 String lastName = mLastName.getText().toString();
-                String city = mCity.getText().toString();
 
                 username = username.trim();
                 password = password.trim();
                 email = email.trim();
                 firstName = firstName.trim();
                 lastName = lastName.trim();
-                city = city.trim();
 
                 if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
@@ -69,7 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
                     newUser.setPassword(password);
                     newUser.put("firstName", firstName);
                     newUser.put("lastName", lastName);
-                    newUser.put("City", city);
                     newUser.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {

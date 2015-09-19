@@ -79,14 +79,13 @@
         android:layout_below="@id/loginButton"
         android:layout_centerHorizontal="true"/>
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login with facebook"
         android:id="@+id/facebook_button"
+        android:layout_marginTop="66dp"
         android:layout_below="@+id/signUpText"
-        android:layout_alignStart="@+id/title"
-        android:layout_marginTop="59dp" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

@@ -28,7 +28,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         mFirstNameText = (TextView) findViewById(R.id.firstNameText);
         mLastNameText = (TextView) findViewById(R.id.lastNameText);
-        mCityText = (TextView) findViewById(R.id.cityText);
 
         Intent intent = getIntent();
         objectId = intent.getStringExtra("objectId");
@@ -42,7 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                     mFirstNameText.setText(getResources().getString(R.string.firstNamePlaceholder) + " " + mUser.get(ParseConstants.KEY_FIRST_NAME).toString());
                     mLastNameText.setText(getResources().getString(R.string.lastNamePlaceholder) + " " + mUser.get(ParseConstants.KEY_LAST_NAME).toString());
-                    mCityText.setText(getResources().getString(R.string.cityPlaceholder) + " " + mUser.get(ParseConstants.KEY_CITY).toString());
                 } else {
                     mFirstNameText.setText("Test");
                 }

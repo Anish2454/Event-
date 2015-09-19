@@ -20,6 +20,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -31,6 +33,9 @@ import com.parse.ParseUser;
 
 import com.facebook.FacebookSdk;
 import com.parse.SaveCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -71,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         progressDialog.dismiss();
+                        setData(parseUser);
                         postLogin(parseUser, e);
                     }
                 });
@@ -139,6 +145,36 @@ public class LoginActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+    }
+
+    private void setData(ParseUser parseUser){
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        final ParseUser user = parseUser;
+        GraphRequest request = GraphRequest.newMeRequest(
+                accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject obj,
+                            GraphResponse response) {
+                        try {
+                            user.setEmail(obj.getString("email"));
+                            user.put(ParseConstants.KEY_FIRST_NAME, obj.getString("first_name"));
+                            user.put(ParseConstants.KEY_LAST_NAME, obj.getString("last_name"));
+                            user.setUsername(obj.getString("first_name"));
+                        }
+                        catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "first_name,last_name,email");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+
+
     }
 
 }

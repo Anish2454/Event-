@@ -67,7 +67,7 @@ public class RecipientsActivity extends ListActivity {
                     String[] usernames = new String[mFriends.size()];
                     int i = 0;
                     for (ParseUser user : mFriends) {
-                        usernames[i] = user.getUsername();
+                        usernames[i] = user.get(ParseConstants.KEY_FIRST_NAME).toString();
                         i++;
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(
