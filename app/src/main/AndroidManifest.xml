@@ -11,7 +11,7 @@
         android:required="true" />
 
     <application
-        android:name=".RibbitApplication"
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -81,7 +81,21 @@
             android:name=".ViewTextActivity"
             android:label="@string/title_activity_view_text" >
         </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="ZuaKUrGFF7nqQNBxjACITRLHDw526nQxNyXw0l1g" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="fVrcnuW0tMRgoZyU9yE9YEy04Tgg6xwpizNhd1Pu" />
     </application>
 
 </manifest>
