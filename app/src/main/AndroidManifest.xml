@@ -60,28 +60,6 @@
                 android:value="com.shenoy.anish.ribbit.MainActivity" />
         </activity>
         <activity
-            android:name=".TextActivity"
-            android:label="@string/title_activity_text"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.shenoy.anish.ribbit.MainActivity" />
-        </activity>
-        <activity
-            android:name=".ViewImageActivity"
-            android:label="@string/title_activity_view_image"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.shenoy.anish.ribbit.MainActivity" />
-        </activity>
-        <activity
-            android:name=".ViewTextActivity"
-            android:label="@string/title_activity_view_text" >
-        </activity>
-        <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
@@ -96,6 +74,15 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="fVrcnuW0tMRgoZyU9yE9YEy04Tgg6xwpizNhd1Pu" />
+
+        <activity
+            android:name=".CreateEventActivity"
+            android:label="@string/title_activity_event" >
+        </activity>
+        <activity
+            android:name=".ViewEventActivity"
+            android:label="@string/title_activity_view_event" >
+        </activity>
     </application>
 
 </manifest>

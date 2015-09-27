@@ -51,4 +51,9 @@
     <string name="notification_posted">Notification posted</string>
     <string name="facebook_button_text">Login With Facebook</string>
     <string name="title_activity_application">Application</string>
+    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_view_event">ViewEventActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

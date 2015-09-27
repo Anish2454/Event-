@@ -64,8 +64,10 @@ public class SignUpActivity extends AppCompatActivity {
                     newUser.setUsername(username);
                     newUser.setEmail(email);
                     newUser.setPassword(password);
-                    newUser.put("firstName", firstName);
-                    newUser.put("lastName", lastName);
+                    newUser.put(ParseConstants.KEY_FIRST_NAME, firstName);
+                    newUser.put(ParseConstants.KEY_LAST_NAME, lastName);
+                    newUser.put(ParseConstants.KEY_IS_FACEBOOK, false);
+
                     newUser.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {

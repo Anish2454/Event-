@@ -13,14 +13,8 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_camera"
-        android:title="@string/menu_camera_label"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_action_camera" />
-    <item
-        android:id="@+id/action_text"
-        android:title="Text"
+        android:id="@+id/action_event"
+        android:title="Event"
         android:orderInCategory="100"
         app:showAsAction="always" />
 </menu>

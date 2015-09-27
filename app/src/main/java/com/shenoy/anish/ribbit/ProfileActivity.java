@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.facebook.login.widget.ProfilePictureView;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -19,7 +20,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     protected TextView mFirstNameText;
     protected TextView mLastNameText;
-    protected TextView mCityText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,13 @@ public class ProfileActivity extends AppCompatActivity {
             public void done(ParseUser parseUser, ParseException e) {
                 if (e == null) {
                     mUser = parseUser;
-
                     mFirstNameText.setText(getResources().getString(R.string.firstNamePlaceholder) + " " + mUser.get(ParseConstants.KEY_FIRST_NAME).toString());
                     mLastNameText.setText(getResources().getString(R.string.lastNamePlaceholder) + " " + mUser.get(ParseConstants.KEY_LAST_NAME).toString());
+
+                    if(parseUser.getBoolean(ParseConstants.KEY_IS_FACEBOOK)){
+                        ProfilePictureView view = (ProfilePictureView) findViewById(R.id.facebook_view);
+                        view.setProfileId(mUser.getString(ParseConstants.KEY_FACEBOOK_PROFILE_ID));
+                    }
                 } else {
                     mFirstNameText.setText("Test");
                 }

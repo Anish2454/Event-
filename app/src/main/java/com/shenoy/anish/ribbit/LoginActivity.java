@@ -162,6 +162,8 @@ public class LoginActivity extends AppCompatActivity {
                             user.put(ParseConstants.KEY_FIRST_NAME, obj.getString("first_name"));
                             user.put(ParseConstants.KEY_LAST_NAME, obj.getString("last_name"));
                             user.setUsername(obj.getString("first_name"));
+                            user.put(ParseConstants.KEY_IS_FACEBOOK, true);
+                            user.put(ParseConstants.KEY_FACEBOOK_PROFILE_ID, obj.getString("id"));
                         }
                         catch (JSONException e){
                             e.printStackTrace();
@@ -169,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "first_name,last_name,email");
+        parameters.putString("fields", "first_name,last_name,email,id");
         request.setParameters(parameters);
         request.executeAsync();
 

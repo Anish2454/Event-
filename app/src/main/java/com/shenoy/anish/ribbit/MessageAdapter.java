@@ -1,6 +1,7 @@
 package com.shenoy.anish.ribbit;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.login.widget.ProfilePictureView;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -18,12 +21,14 @@ import java.util.List;
 public class MessageAdapter extends ArrayAdapter<ParseObject> {
 
     protected Context mContext;
-    protected List<ParseObject> mMessages;
+    protected List<ParseObject> mEvents;
 
-    public MessageAdapter(Context context, List<ParseObject> messages){
-        super(context, R.layout.message_item, messages);
+    private static final String TAG = MessageAdapter.class.getSimpleName();
+
+    public MessageAdapter(Context context, List<ParseObject> events){
+        super(context, R.layout.message_item, events);
         mContext = context;
-        mMessages = messages;
+        mEvents = events;
     }
 
     @Override
@@ -33,26 +38,26 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
         if(convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.message_item, null);
             holder = new ViewHolder();
-            holder.iconImageView = (ImageView) convertView.findViewById(R.id.messageIcon);
+            holder.iconImageView = (ImageView) convertView.findViewById(R.id.imageView2);
             holder.nameLabel = (TextView) convertView.findViewById(R.id.senderLabel);
+            holder.profilePictureView = (ProfilePictureView) convertView.findViewById(R.id.view);
             convertView.setTag(holder);
         }
         else{
             holder = (ViewHolder)convertView.getTag();
         }
 
-        ParseObject message = mMessages.get(position);
-        if(message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.TYPE_IMAGE)) {
-            holder.iconImageView.setImageResource(R.drawable.ic_action_picture);
+        ParseObject event = mEvents.get(position);
+        if(event.getBoolean(ParseConstants.KEY_CREATOR_IS_FACEBOOK)) {
+            holder.profilePictureView.setProfileId(event.getString(ParseConstants.KEY_CREATOR_FACEBOOK_PROFILE_ID));
+            holder.iconImageView.setVisibility(View.INVISIBLE);
         }
-        else if(message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.TYPE_VIDEO)){
-            holder.iconImageView.setImageResource(R.drawable.ic_action_play_over_video);
-        }
-        else {
-            holder.iconImageView.setImageResource(R.drawable.ic_textsms_white_36dp);
+        else{
+            holder.profilePictureView.setVisibility(View.INVISIBLE);
+            holder.iconImageView.setVisibility(View.VISIBLE);
         }
 
-        holder.nameLabel.setText(message.getString(ParseConstants.KEY_SENDER_NAME));
+        holder.nameLabel.setText(event.getString(ParseConstants.KEY_DESCRIPTION));
 
 
         return convertView;
@@ -61,11 +66,12 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
     private static class ViewHolder{
         ImageView iconImageView;
         TextView nameLabel;
+        ProfilePictureView profilePictureView;
     }
 
-    public void refill(List<ParseObject> messages){
-        mMessages.clear();
-        mMessages.addAll(messages);
+    public void refill(List<ParseObject> events){
+        mEvents.clear();
+        mEvents.addAll(events);
         notifyDataSetChanged();
     }
 }

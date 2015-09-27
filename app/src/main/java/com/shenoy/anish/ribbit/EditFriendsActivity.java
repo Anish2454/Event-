@@ -50,6 +50,7 @@ public class EditFriendsActivity extends ListActivity {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
                 if (e == null) {
+                    list.remove(mCurrentUser);
                     mUsers = list;
                     String[] usernames = new String[mUsers.size()];
                     int i = 0;

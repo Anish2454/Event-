@@ -32,20 +32,21 @@ public class RecipientsActivity extends ListActivity {
     protected List<ParseUser> mFriends;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
-    protected Uri mMediaUri;
-    protected String mFileType;
+    private String mDescription;
+    private Boolean mIsOpen;
+    private ArrayList<String> mAttendeesByIds;
+    private ArrayList<String> mAttendeesByFirstName;
 
     protected static MenuItem mSendMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDescription = getIntent().getStringExtra("description");
+        mIsOpen = getIntent().getBooleanExtra("isOpen", false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipients);
 
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-        mMediaUri = getIntent().getData();
-        mFileType = getIntent().getStringExtra(ParseConstants.KEY_FILE_TYPE);
     }
 
 
@@ -61,7 +62,6 @@ public class RecipientsActivity extends ListActivity {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
                 if (e == null) {
-
                     mFriends = list;
 
                     String[] usernames = new String[mFriends.size()];
@@ -100,22 +100,16 @@ public class RecipientsActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send:
-                ParseObject message = createMessage();
+                mAttendeesByIds = getRecipientIds();
+                mAttendeesByFirstName = getAttendeesNames();
+                ParseObject message = createEvent();
                 if (message == null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("There was an error")
-                            .setTitle("We're Sorry!")
-                            .setPositiveButton(android.R.string.ok, null);
+
                 } else {
                     send(message);
-                    if (mFileType.equals(ParseConstants.TYPE_TEXT)) {
-                        Intent finishIntent = new Intent(this, MainActivity.class);
-                        finishIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        finishIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(finishIntent);
-                    } else {
-                        finish();
-                    }
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 return true;
         }
@@ -123,33 +117,16 @@ public class RecipientsActivity extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private ParseObject createMessage() {
-        ParseObject message = new ParseObject(ParseConstants.CLASS_MESSAGES);
-        message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
-        message.put(ParseConstants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
-        message.put(ParseConstants.KEY_RECIPENT_IDS, getRecipientIds());
-        message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
+    private ParseObject createEvent() {
+        Event event = new Event(mDescription, mIsOpen);
+        event.addAttendees(mAttendeesByIds, mAttendeesByFirstName);
+        return event.getEvent();
+    }
 
-        if (mFileType.equals(ParseConstants.TYPE_TEXT)) {
-            message.put(ParseConstants.KEY_MESSAGE, getIntent().getStringExtra("message"));
-            return message;
-        }
-
-        byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
-
-        if (fileBytes == null) {
-            return null;
-        } else {
-            if (mFileType.equals(ParseConstants.TYPE_IMAGE)) {
-                fileBytes = FileHelper.reduceImageForUpload(fileBytes);
-            }
-
-            String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
-            ParseFile file = new ParseFile(fileName, fileBytes);
-            message.put(ParseConstants.KEY_FILE, file);
-
-            return message;
-        }
+    private ParseObject createChat(String eventId){
+        GroupChat chat = new GroupChat(eventId);
+        chat.addAttendees(mAttendeesByIds, mAttendeesByFirstName);
+        return chat.getmGroupChat();
     }
 
     protected ArrayList<String> getRecipientIds() {
@@ -162,6 +139,16 @@ public class RecipientsActivity extends ListActivity {
         return recipientIds;
     }
 
+    protected ArrayList<String> getAttendeesNames() {
+        ArrayList<String> attendeesNames = new ArrayList<>();
+        for (int i = 0; i < getListView().getCount(); i++) {
+            if (getListView().isItemChecked(i)) {
+                attendeesNames.add(mFriends.get(i).getString(ParseConstants.KEY_FIRST_NAME));
+            }
+        }
+        return attendeesNames;
+    }
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -169,19 +156,12 @@ public class RecipientsActivity extends ListActivity {
     }
 
     protected void send(ParseObject message) {
-        message.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(RecipientsActivity.this, "Message Sent!", Toast.LENGTH_LONG).show();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RecipientsActivity.this);
-                    builder.setMessage("There was an error sending your message. Please try again")
-                            .setTitle("We're Sorry!")
-                            .setPositiveButton(android.R.string.ok, null);
-                } else {
-
-                }
-            }
-        });
+        try{
+            message.save();
+            createChat(message.getObjectId()).save();
+        }
+        catch(ParseException e){
+            e.printStackTrace();
+        }
     }
 }
