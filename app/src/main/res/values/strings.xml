@@ -7,6 +7,8 @@
     <string name="hello_world">Hello world!</string>
 
     <string name="facebook_app_id">175839846084429</string>
+    <string name="sinch_key">220f82cf-5385-431b-a293-c84705d9322d</string>
+    <string name="sinch_secret">cyQ+I+xqq0esaF10m3MD8A==</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>

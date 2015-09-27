@@ -133,9 +133,11 @@ public class LoginActivity extends AppCompatActivity {
     private void postLogin(ParseUser e, ParseException e1){
         if (e != null) {
             Intent intent = new Intent(this, MainActivity.class);
+            Intent serviceIntent = new Intent(this, MessageService.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            startService(serviceIntent);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
             builder.setMessage(e1.getMessage());
