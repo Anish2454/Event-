@@ -2,11 +2,15 @@ package com.shenoy.anish.ribbit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -22,6 +27,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatFragment extends ListFragment {
@@ -41,6 +47,7 @@ public class ChatFragment extends ListFragment {
                 retrieveChats();
             }
         });
+
         return rootView;
     }
 
@@ -59,21 +66,19 @@ public class ChatFragment extends ListFragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
                 if (e == null) {
                     mChats = list;
-
-                    MessageAdapter adapter = new MessageAdapter(
-                            getListView().getContext(),
-                            mChats);
-                    setListAdapter(adapter);
-                } else {
-                    Log.e(TAG, e.getMessage());
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getListView().getContext());
-                    builder.setMessage(e.getMessage());
-                    builder.setTitle(R.string.error_title);
-                    builder.setPositiveButton("ok", null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    if (getListView().getAdapter() == null) {
+                        MessageAdapter adapter = new MessageAdapter(
+                                getListView().getContext(),
+                                mChats);
+                        setListAdapter(adapter);
+                    } else {
+                        ((MessageAdapter) getListView().getAdapter()).refill(mChats);
+                    }
                 }
             }
         });
@@ -82,7 +87,9 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
+        Intent intent = new Intent(getActivity(), MessagingActivity.class);
+        intent.putExtra("objectId", mChats.get(position).getObjectId());
+        startActivity(intent);
     }
 }
 

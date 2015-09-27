@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.parse.ParseUser;
 import com.sinch.android.rtc.ClientRegistration;
@@ -14,6 +15,8 @@ import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.messaging.MessageClient;
 import com.sinch.android.rtc.messaging.MessageClientListener;
 import com.sinch.android.rtc.messaging.WritableMessage;
+
+import java.util.ArrayList;
 
 /**
  * Created by ANISH on 9/27/2015.
@@ -27,10 +30,13 @@ public class MessageService extends Service implements SinchClientListener {
     private SinchClient sinchClient = null;
     private MessageClient messageClient = null;
     private String currentUserId;
+    private Intent broadcastIntent = new Intent("com.shenoy.anish.ribbit.ChatFragment");
+    private LocalBroadcastManager broadcaster;
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
+        broadcaster = LocalBroadcastManager.getInstance(this);
         //get the current user id from Parse
         currentUserId = ParseUser.getCurrentUser().getObjectId();
 
@@ -40,6 +46,7 @@ public class MessageService extends Service implements SinchClientListener {
 
         return super.onStartCommand(intent, flags, startId);
     }
+
 
     public void startSinchClient(String username) {
         sinchClient = Sinch.getSinchClientBuilder()
@@ -69,6 +76,9 @@ public class MessageService extends Service implements SinchClientListener {
     //The next 5 methods are for the sinch client listener
     @Override
     public void onClientFailed(SinchClient client, SinchError error) {
+        broadcastIntent.putExtra("success", false);
+        broadcaster.sendBroadcast(broadcastIntent);
+
         sinchClient = null;
     }
 
@@ -76,6 +86,9 @@ public class MessageService extends Service implements SinchClientListener {
     public void onClientStarted(SinchClient client) {
         client.startListeningOnActiveConnection();
         messageClient = client.getMessageClient();
+        broadcastIntent.putExtra("success", true);
+        broadcaster.sendBroadcast(broadcastIntent);
+
     }
 
     @Override
@@ -94,9 +107,9 @@ public class MessageService extends Service implements SinchClientListener {
         return serviceInterface;
     }
 
-    public void sendMessage(String recipientUserId, String textBody) {
+    public void sendMessage(ArrayList<String> recipientUserIds, String textBody) {
         if (messageClient != null) {
-            WritableMessage message = new WritableMessage(recipientUserId, textBody);
+            WritableMessage message = new WritableMessage(recipientUserIds, textBody);
             messageClient.send(message);
         }
     }
@@ -115,14 +128,14 @@ public class MessageService extends Service implements SinchClientListener {
 
     @Override
     public void onDestroy() {
-        sinchClient.stopListeningOnActiveConnection();
-        sinchClient.terminate();
+        //sinchClient.stopListeningOnActiveConnection();
+        //sinchClient.terminate();
     }
 
     //public interface for ListUsersActivity & MessagingActivity
     public class MessageServiceInterface extends Binder {
-        public void sendMessage(String recipientUserId, String textBody) {
-            MessageService.this.sendMessage(recipientUserId, textBody);
+        public void sendMessage(ArrayList<String> recipientUserIds, String textBody) {
+            MessageService.this.sendMessage(recipientUserIds, textBody);
         }
 
         public void addMessageClientListener(MessageClientListener listener) {

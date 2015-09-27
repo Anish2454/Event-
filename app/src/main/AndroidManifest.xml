@@ -83,7 +83,13 @@
             android:name=".ViewEventActivity"
             android:label="@string/title_activity_view_event" >
         </activity>
-        <service android:name="com.shenoy.anish.ribbit.MessageService"></service>
+
+        <service android:name=".MessageService" />
+
+        <activity
+            android:name=".MessagingActivity"
+            android:label="@string/title_activity_messaging" >
+        </activity>
     </application>
 
 </manifest>
