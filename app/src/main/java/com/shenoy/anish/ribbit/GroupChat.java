@@ -14,15 +14,18 @@ public class GroupChat {
     private ParseObject mGroupChat;
     private String mEventId;
     private ParseUser mCurrentUser;
+    private String mName;
 
 
-    public GroupChat(String eventId){
+    public GroupChat(String eventId, String name){
+        mName = name;
         mCurrentUser = ParseUser.getCurrentUser();
         mRecipients = new ArrayList<>();
         mAttendees = new ArrayList<>();
         mEventId = eventId;
         mGroupChat = new ParseObject(ParseConstants.CLASS_GROUP_CHAT);
         mGroupChat.put(ParseConstants.KEY_EVENT_ID, mEventId);
+        mGroupChat.put(ParseConstants.KEY_NAME, mName);
         newAttendee(mCurrentUser.getObjectId(), mCurrentUser.getString(ParseConstants.KEY_FIRST_NAME));
     }
 

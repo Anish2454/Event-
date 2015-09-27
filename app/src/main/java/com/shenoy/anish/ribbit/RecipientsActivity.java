@@ -3,7 +3,6 @@ package com.shenoy.anish.ribbit;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,16 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +28,7 @@ public class RecipientsActivity extends ListActivity {
     protected List<ParseUser> mFriends;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
-    private String mDescription;
+    private String mName;
     private Boolean mIsOpen;
     private ArrayList<String> mAttendeesByIds;
     private ArrayList<String> mAttendeesByFirstName;
@@ -41,7 +37,7 @@ public class RecipientsActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mDescription = getIntent().getStringExtra("description");
+        mName = getIntent().getStringExtra("Name");
         mIsOpen = getIntent().getBooleanExtra("isOpen", false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipients);
@@ -118,13 +114,13 @@ public class RecipientsActivity extends ListActivity {
     }
 
     private ParseObject createEvent() {
-        Event event = new Event(mDescription, mIsOpen);
+        Event event = new Event(mName, mIsOpen);
         event.addAttendees(mAttendeesByIds, mAttendeesByFirstName);
         return event.getEvent();
     }
 
-    private ParseObject createChat(String eventId){
-        GroupChat chat = new GroupChat(eventId);
+    private ParseObject createChat(String eventId, String name){
+        GroupChat chat = new GroupChat(eventId, name);
         chat.addAttendees(mAttendeesByIds, mAttendeesByFirstName);
         return chat.getmGroupChat();
     }
@@ -158,7 +154,7 @@ public class RecipientsActivity extends ListActivity {
     protected void send(ParseObject message) {
         try{
             message.save();
-            createChat(message.getObjectId()).save();
+            createChat(message.getObjectId(), mName).save();
         }
         catch(ParseException e){
             e.printStackTrace();

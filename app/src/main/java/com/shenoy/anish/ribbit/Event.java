@@ -1,17 +1,9 @@
 package com.shenoy.anish.ribbit;
 
-import android.support.annotation.NonNull;
-
-import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by ANISH on 9/19/2015.
@@ -21,15 +13,15 @@ public class Event {
     ParseObject mEvent;
     ArrayList<String> mRecipients;
     ArrayList<String> mAttendees;
-    String mDescription;
-    public Event(String description, Boolean isOpen){
-        mDescription = description;
+    String mName;
+    public Event(String name, Boolean isOpen){
+        mName = name;
         mRecipients = new ArrayList<>();
         mAttendees = new ArrayList<>();
         mEvent = new ParseObject(ParseConstants.CLASS_EVENT);
         //mEvent.put(ParseConstants.KEY_LOCATION, geoPoint);
         mEvent.put(ParseConstants.KEY_CREATOR, user.getUsername());
-        mEvent.put(ParseConstants.KEY_DESCRIPTION, mDescription);
+        mEvent.put(ParseConstants.KEY_NAME, mName);
         mEvent.put(ParseConstants.KEY_ISOPEN, isOpen);
         mEvent.put(ParseConstants.KEY_CREATOR_IS_FACEBOOK, user.getBoolean(ParseConstants.KEY_IS_FACEBOOK));
         if(user.getBoolean(ParseConstants.KEY_IS_FACEBOOK)) {

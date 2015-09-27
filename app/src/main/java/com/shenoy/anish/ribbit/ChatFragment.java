@@ -72,12 +72,12 @@ public class ChatFragment extends ListFragment {
                 if (e == null) {
                     mChats = list;
                     if (getListView().getAdapter() == null) {
-                        MessageAdapter adapter = new MessageAdapter(
+                        GroupChatAdapter adapter = new GroupChatAdapter(
                                 getListView().getContext(),
                                 mChats);
                         setListAdapter(adapter);
                     } else {
-                        ((MessageAdapter) getListView().getAdapter()).refill(mChats);
+                        ((GroupChatAdapter) getListView().getAdapter()).refill(mChats);
                     }
                 }
             }

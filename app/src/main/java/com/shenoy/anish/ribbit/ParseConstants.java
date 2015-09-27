@@ -32,6 +32,7 @@ public final class ParseConstants {
     public static final String KEY_LOCATION = "location";
     public static final String KEY_CREATOR = "creator";
     public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_NAME="Name";
     public static final String KEY_DATE = "date";
     public static final String KEY_ISOPEN = "isOpen";
     public static final String KEY_MEMBER_IDS = "memberIds";

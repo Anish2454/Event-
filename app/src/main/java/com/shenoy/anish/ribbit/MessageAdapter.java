@@ -57,7 +57,7 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
             holder.iconImageView.setVisibility(View.VISIBLE);
         }
 
-        holder.nameLabel.setText(event.getString(ParseConstants.KEY_DESCRIPTION));
+        holder.nameLabel.setText(event.getString(ParseConstants.KEY_NAME));
 
 
         return convertView;

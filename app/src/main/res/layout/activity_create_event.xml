@@ -12,7 +12,7 @@
         android:id="@+id/descriptionEditText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="&quot;Description&quot;" />
+        android:hint="Event Name" />
 
     <CheckBox
         android:layout_width="match_parent"

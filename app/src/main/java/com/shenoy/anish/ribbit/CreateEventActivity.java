@@ -1,11 +1,8 @@
 package com.shenoy.anish.ribbit;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,38 +15,36 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
-import java.util.Date;
-
 public class CreateEventActivity extends AppCompatActivity {
 
     private static final String TAG = CreateEventActivity.class.getSimpleName();
 
-    private EditText mDescription;
+    private EditText mName;
     private CheckBox mCheckbox;
     private Button mCreateEvent;
-    private String mEventDescription;
+    private String mEventName;
     private Event mEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-        mDescription = (EditText) findViewById(R.id.descriptionEditText);
+        mName = (EditText) findViewById(R.id.descriptionEditText);
         mCheckbox = (CheckBox) findViewById(R.id.openEventCheckBox);
         mCreateEvent = (Button) findViewById(R.id.createeventButton);
 
         mCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEventDescription = mDescription.getText().toString().trim();
+                mEventName = mName.getText().toString().trim();
                 Boolean isOpen = mCheckbox.isChecked();
                 if (mCheckbox.isChecked()) {
-                    mEvent = new Event(mEventDescription, isOpen);
+                    mEvent = new Event(mEventName, isOpen);
                     saveEvent(mEvent.getEvent());
 
                 } else {
                     Intent intent = new Intent(CreateEventActivity.this, RecipientsActivity.class);
-                    intent.putExtra("description", mEventDescription);
+                    intent.putExtra("Name", mEventName);
                     intent.putExtra("isOpen", isOpen);
                     startActivity(intent);
                 }
