@@ -3,21 +3,20 @@ package com.shenoy.anish.ribbit;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sinch.android.rtc.PushPair;
@@ -29,7 +28,6 @@ import com.sinch.android.rtc.messaging.MessageFailureInfo;
 import com.sinch.android.rtc.messaging.WritableMessage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MessagingActivity extends AppCompatActivity {
@@ -88,7 +86,7 @@ public class MessagingActivity extends AppCompatActivity {
                     return;
                 }
                 Log.e(TAG, attendees.size() + "");
-                messageService.sendMessage(attendees, messageBody+mChatId.toString());
+                messageService.sendMessage(attendees, messageBody + mChatId);
                 messageBodyField.setText("");
 
             }
@@ -150,11 +148,10 @@ public class MessagingActivity extends AppCompatActivity {
 
         @Override
         public void onIncomingMessage(MessageClient client, Message message) {
-            if (message.getTextBody().toLowerCase().contains(mChatId.toString())) {
-                WritableMessage writableMessage = new WritableMessage(message.getRecipientIds(), message.getTextBody().replace(mChatId.toString(), ""));
+            if (message.getTextBody().contains(mChatId)) {
+                WritableMessage writableMessage = new WritableMessage(message.getRecipientIds(), message.getTextBody().replace(mChatId, ""));
                 adapter.addMessage(writableMessage, ChatMessageAdapter.DIRECTION_INCOMING);
-            }
-            else{
+            } else {
                 Log.e(TAG, "Didn't work");
             }
         }
@@ -199,6 +196,20 @@ public class MessagingActivity extends AppCompatActivity {
         //Don't worry about this right now
         @Override
         public void onShouldSendPushData(MessageClient client, Message message, List<PushPair> pushPairs) {
+            final WritableMessage writableMessage = new WritableMessage(message.getRecipientIds(), message.getTextBody());
+
+            ParseQuery userQuery = ParseUser.getQuery();
+            userQuery.whereContainedIn("objectId", writableMessage.getRecipientIds());
+
+            ParseQuery pushQuery = ParseInstallation.getQuery();
+            pushQuery.whereMatchesKeyInQuery("senderId", "objectId", userQuery);
+
+            // Send push notification to query
+            ParsePush push = new ParsePush();
+            push.setQuery(pushQuery); // Set our Installation query
+            push.setMessage("New Message");
+            push.sendInBackground();
+
         }
     }
 

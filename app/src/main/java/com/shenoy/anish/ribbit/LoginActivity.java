@@ -2,14 +2,9 @@ package com.shenoy.anish.ribbit;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,27 +13,17 @@ import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
-
-import com.facebook.FacebookSdk;
-import com.parse.SaveCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,9 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-        actionBar.hide();
+        getSupportActionBar().hide();
 
         mFacebookButton = (Button) findViewById(R.id.facebook_button);
         callbackManager = CallbackManager.Factory.create();
@@ -130,12 +113,15 @@ public class LoginActivity extends AppCompatActivity {
         // callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void postLogin(ParseUser e, ParseException e1){
+    private void postLogin(ParseUser e, ParseException e1) {
         if (e != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            Intent serviceIntent = new Intent(this, MessageService.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent serviceIntent = new Intent(LoginActivity.this, MessageService.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+            installation.put("senderId", ParseUser.getCurrentUser().getObjectId());
+            installation.saveInBackground();
             startActivity(intent);
             startService(serviceIntent);
         } else {
@@ -149,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void setData(ParseUser parseUser){
+    private void setData(ParseUser parseUser) {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         final ParseUser user = parseUser;
         GraphRequest request = GraphRequest.newMeRequest(
@@ -166,8 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                             user.setUsername(obj.getString("first_name"));
                             user.put(ParseConstants.KEY_IS_FACEBOOK, true);
                             user.put(ParseConstants.KEY_FACEBOOK_PROFILE_ID, obj.getString("id"));
-                        }
-                        catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -176,7 +161,6 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields", "first_name,last_name,email,id");
         request.setParameters(parameters);
         request.executeAsync();
-
 
 
     }

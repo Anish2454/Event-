@@ -1,19 +1,30 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+        <item name="actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+        <item name="colorPrimaryDark">#000000</item>
     </style>
 
-    <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
-        <item name="android:background">@color/white</item>
+    <style name="MyTheme.ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/white</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBarStyle.TitleTextStyle</item>
+        <item name="titleTextStyle">@style/MyTheme.ActionBarStyle.TitleTextStyle</item>
     </style>
 
-    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <style name="MyTheme.ActionBarStyle.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/text_color</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MainActivTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
+
+    <style name="MyToolbar" parent="Widget.Design.TabLayout">
+        <item name="android:background">#b37ece</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="tabIndicatorHeight">2dp</item>
+    </style>
 
     <style name="AuthBackground">
         <item name="android:background">@drawable/background_fill</item>

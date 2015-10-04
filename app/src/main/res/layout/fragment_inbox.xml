@@ -9,7 +9,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:id="@+id/swipeRefreshLayout">
+        android:id="@+id/swipeRefreshLayout"
+        android:background="@color/feed_item_border">
 
         <ListView
             android:id="@android:id/list"

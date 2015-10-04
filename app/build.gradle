@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.shenoy.anish.ribbit"
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -31,5 +31,6 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile "com.android.support:support-v4:22.2.+"
     compile 'com.facebook.android:facebook-android-sdk:4.2.0'
+    compile 'com.android.support:design:22.2.0'
 
 }

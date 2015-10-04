@@ -14,6 +14,11 @@ import java.util.Locale;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     protected Context mContext;
+    private int[] imageResId = {
+            R.drawable.ic_tab_inbox,
+            R.drawable.ic_tab_friends,
+            R.drawable.ic_menu_send
+    };
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);

@@ -1,30 +1,17 @@
 package com.shenoy.anish.ribbit;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.parse.Parse;
 import com.parse.ParseUser;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,13 +58,21 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, currentUser.getUsername());
         }
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_tab_inbox);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_tab_friends);
+
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
 
 
     }
@@ -132,37 +127,4 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-
-/**
- * A placeholder fragment containing a simple view.
- * <p/>
- * public static class PlaceholderFragment extends Fragment {
- * <p/>
- * The fragment argument representing the section number for this
- * fragment.
- * <p/>
- * private static final String ARG_SECTION_NUMBER = "section_number";
- * <p/>
- * /**
- * Returns a new instance of this fragment for the given section
- * number.
- * <p/>
- * public static PlaceholderFragment newInstance(int sectionNumber) {
- * PlaceholderFragment fragment = new PlaceholderFragment();
- * Bundle args = new Bundle();
- * args.putInt(ARG_SECTION_NUMBER, sectionNumber);
- * fragment.setArguments(args);
- * return fragment;
- * }
- * <p/>
- * public PlaceholderFragment() {
- * }
- *
- * @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
- * Bundle savedInstanceState) {
- * View rootView = inflater.inflate(R.layout.fragment_inbox, container, false);
- * return rootView;
- * }
- * }
- */
 

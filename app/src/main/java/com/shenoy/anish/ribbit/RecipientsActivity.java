@@ -29,6 +29,7 @@ public class RecipientsActivity extends ListActivity {
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
     private String mName;
+    private String mDescription;
     private Boolean mIsOpen;
     private ArrayList<String> mAttendeesByIds;
     private ArrayList<String> mAttendeesByFirstName;
@@ -38,6 +39,7 @@ public class RecipientsActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mName = getIntent().getStringExtra("Name");
+        mDescription = getIntent().getStringExtra("Description");
         mIsOpen = getIntent().getBooleanExtra("isOpen", false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipients);
@@ -114,7 +116,7 @@ public class RecipientsActivity extends ListActivity {
     }
 
     private ParseObject createEvent() {
-        Event event = new Event(mName, mIsOpen);
+        Event event = new Event(mName, mIsOpen, mDescription);
         event.addAttendees(mAttendeesByIds, mAttendeesByFirstName);
         return event.getEvent();
     }

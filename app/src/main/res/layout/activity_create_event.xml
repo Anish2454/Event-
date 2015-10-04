@@ -9,18 +9,18 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/descriptionEditText"
+        android:id="@+id/nameEditText"
+        android:hint="Event Name"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:hint="Event Name" />
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open Event? (Anyone Can Join)"
         android:id="@+id/openEventCheckBox"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/descriptionEditText" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
@@ -29,5 +29,13 @@
         android:id="@+id/createeventButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionEditText"
+        android:layout_below="@+id/nameEditText"
+        android:layout_centerHorizontal="true"
+        android:hint="Event Description" />
 
 </RelativeLayout>

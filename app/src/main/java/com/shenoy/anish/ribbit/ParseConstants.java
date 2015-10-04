@@ -38,6 +38,7 @@ public final class ParseConstants {
     public static final String KEY_MEMBER_IDS = "memberIds";
     public static final String KEY_GROUP_NAME = "groupName";
     public static final String KEY_EVENT_ID = "eventId";
+    public static final String KEY_CREATOR_ID = "creatorId";
 
     public static final String TYPE_IMAGE = "image";
     public static final String TYPE_VIDEO = "video";

@@ -14,16 +14,19 @@ public class Event {
     ArrayList<String> mRecipients;
     ArrayList<String> mAttendees;
     String mName;
-    public Event(String name, Boolean isOpen){
+
+    public Event(String name, Boolean isOpen, String description) {
         mName = name;
         mRecipients = new ArrayList<>();
         mAttendees = new ArrayList<>();
         mEvent = new ParseObject(ParseConstants.CLASS_EVENT);
         //mEvent.put(ParseConstants.KEY_LOCATION, geoPoint);
         mEvent.put(ParseConstants.KEY_CREATOR, user.getUsername());
+        mEvent.put(ParseConstants.KEY_CREATOR_ID, user.getObjectId());
         mEvent.put(ParseConstants.KEY_NAME, mName);
         mEvent.put(ParseConstants.KEY_ISOPEN, isOpen);
         mEvent.put(ParseConstants.KEY_CREATOR_IS_FACEBOOK, user.getBoolean(ParseConstants.KEY_IS_FACEBOOK));
+        mEvent.put(ParseConstants.KEY_DESCRIPTION, description);
         if(user.getBoolean(ParseConstants.KEY_IS_FACEBOOK)) {
             mEvent.put(ParseConstants.KEY_CREATOR_FACEBOOK_PROFILE_ID, user.getString(ParseConstants.KEY_FACEBOOK_PROFILE_ID));
         }

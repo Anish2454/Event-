@@ -15,9 +15,9 @@
         style="@style/AuthTitle" />
 
     <TextView
-        android:text="A TreeHouse Project"
         android:id="@+id/subTitle"
-        style="@style/AuthSubTitle" />
+        style="@style/AuthSubTitle"
+        android:text="By: Anish Shenoy" />
 
     <LinearLayout
         android:layout_width="match_parent"

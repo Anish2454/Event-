@@ -2,10 +2,8 @@ package com.shenoy.anish.ribbit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +17,7 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by ANISH on 8/7/2015.
@@ -65,7 +60,7 @@ public class InboxFragment extends ListFragment {
         ParseRelation<ParseUser> friendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         ParseQuery<ParseUser> query = friendsRelation.getQuery();
         ParseQuery<ParseObject> eventQuery = new ParseQuery<>(ParseConstants.CLASS_EVENT);
-        eventQuery.whereMatchesKeyInQuery(ParseConstants.KEY_ATTENDEES, "objectId", query);
+        eventQuery.whereMatchesKeyInQuery(ParseConstants.KEY_CREATOR_ID, "objectId", query);
         eventQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
